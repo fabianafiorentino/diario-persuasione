@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Diario del Cambiamento — Persuasione · Store Leader Academy 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --claret: #6B1D34; --claret2: #8C2643; --gold: #C9A84C; --gold2: #A8882E;
+  --black: #111; --white: #FAF8F4; --grey: #E4DFD8; --mid: #847D76; --ink: #231D17;
+  --paper: #F5F0E8; --paper2: #EDE8DF;
+  --c1: #1A4C7C; --c2: #0D8A72; --c3: #6B1D34;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{
+  .no-print{display:none!important}
+  body{background:white!important}
+  .entry-card{break-inside:avoid;border:1px solid #ccc!important;box-shadow:none!important}
+}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);min-height:100vh}
+
+/* ─── HEADER ─── */
+.app-header{background:var(--claret);display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:200}
+.app-header .logo{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);letter-spacing:.15em}
+.header-right{display:flex;align-items:center;gap:12px}
+.entry-count{font-family:'DM Mono',monospace;font-size:11px;color:rgba(250,248,244,.55);letter-spacing:.1em}
+.btn-hdr{background:transparent;border:1.5px solid rgba(250,248,244,.3);color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.1em;padding:7px 18px;cursor:pointer;transition:all .2s}
+.btn-hdr:hover{background:rgba(250,248,244,.12)}
+.btn-hdr.gold{background:var(--gold);border-color:var(--gold);color:var(--black)}
+.btn-hdr.gold:hover{background:var(--gold2)}
+
+/* ─── MAIN LAYOUT ─── */
+.app-body{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 70px)}
+
+/* ─── SIDEBAR ─── */
+.sidebar{background:var(--paper2);border-right:2px solid var(--grey);display:flex;flex-direction:column;overflow:hidden}
+.sidebar-head{padding:20px 20px 12px;border-bottom:1px solid var(--grey)}
+.sidebar-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--claret);letter-spacing:.1em;margin-bottom:4px}
+.sidebar-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);letter-spacing:.08em}
+.sidebar-filters{display:flex;gap:4px;padding:10px 16px;border-bottom:1px solid var(--grey)}
+.filter-btn{background:transparent;border:1px solid var(--grey);color:var(--mid);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;cursor:pointer;transition:all .18s;flex:1;text-align:center}
+.filter-btn.active{background:var(--claret);border-color:var(--claret);color:var(--white)}
+.entries-list{flex:1;overflow-y:auto;padding:8px}
+.entries-empty{padding:32px 16px;text-align:center;font-size:13px;color:var(--mid);font-style:italic;line-height:1.6}
+.entry-item{padding:12px 14px;margin-bottom:4px;cursor:pointer;border-left:3px solid transparent;transition:all .18s;background:transparent}
+.entry-item:hover{background:rgba(107,29,52,.06)}
+.entry-item.active{background:rgba(107,29,52,.1);border-left-color:var(--claret)}
+.entry-item-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);margin-bottom:3px;letter-spacing:.06em}
+.entry-item-preview{font-size:12px;color:var(--ink);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.entry-item-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;margin-top:4px}
+.badge-full{background:rgba(107,29,52,.12);color:var(--claret)}
+.badge-short{background:rgba(201,168,76,.2);color:var(--gold2)}
+
+/* ─── MAIN AREA ─── */
+.main-area{padding:40px 48px;overflow-y:auto;max-height:calc(100vh - 70px)}
+
+/* ─── HOME (empty state) ─── */
+.home-screen{max-width:680px;margin:0 auto}
+.home-hero{text-align:center;padding:40px 0 56px}
+.home-hero-icon{font-size:56px;margin-bottom:16px}
+.home-hero h1{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--claret);line-height:1;margin-bottom:12px}
+.home-hero p{font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;color:var(--mid);line-height:1.6;max-width:460px;margin:0 auto 32px}
+.home-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-new{background:var(--claret);color:var(--white);border:none;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;padding:14px 40px;cursor:pointer;transition:background .2s,transform .15s}
+.btn-new:hover{background:var(--claret2);transform:translateY(-1px)}
+.btn-new::after{content:' →'}
+.btn-new-short{background:transparent;border:2px solid var(--claret);color:var(--claret);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;padding:14px 40px;cursor:pointer;transition:all .2s}
+.btn-new-short:hover{background:var(--claret);color:var(--white)}
+.home-info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+.home-info-card{background:var(--paper);padding:20px;border-left:3px solid var(--gold)}
+.home-info-card-title{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.home-info-card-body{font-size:12px;color:var(--mid);line-height:1.55}
+
+/* ─── FORM ─── */
+.form-screen{max-width:720px;margin:0 auto}
+.form-header{margin-bottom:32px;padding-bottom:20px;border-bottom:3px solid var(--ink)}
+.form-type-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);margin-bottom:8px}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--claret);line-height:1}
+.form-sub{font-size:13px;color:var(--mid);margin-top:6px;font-style:italic}
+.form-meta-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.field-group{display:flex;flex-direction:column;gap:6px}
+.field-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.field-input{font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;border:2px solid var(--grey);background:var(--white);color:var(--ink);outline:none;transition:border .2s;width:100%}
+.field-input:focus{border-color:var(--claret)}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23847D76'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.field-textarea{resize:vertical;min-height:80px;line-height:1.6}
+.section-block{margin-bottom:28px;border:1px solid var(--grey);padding:0}
+.section-block-header{background:var(--claret);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.section-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:rgba(250,248,244,.4);line-height:1;min-width:28px}
+.section-title{font-size:13px;font-weight:600;color:var(--white);line-height:1.3}
+.section-body{padding:20px}
+/* checkboxes */
+.check-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.check-row{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 12px;border:1px solid var(--grey);transition:background .15s}
+.check-row:hover{background:rgba(107,29,52,.05)}
+.check-row.checked{background:rgba(107,29,52,.08);border-color:var(--claret)}
+.check-box{width:18px;height:18px;border:2px solid var(--grey);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.check-row.checked .check-box{background:var(--claret);border-color:var(--claret)}
+.check-mark{color:white;font-size:11px;font-weight:bold}
+.check-label{font-size:13px;color:var(--ink)}
+.check-other-row{display:flex;align-items:center;gap:10px;margin-top:4px}
+.check-other-input{flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 10px;border:1px solid var(--grey);background:var(--white);color:var(--ink);outline:none}
+.check-other-input:focus{border-color:var(--claret)}
+/* form actions */
+.form-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:32px;padding-top:24px;border-top:2px solid var(--grey)}
+.btn-cancel{background:transparent;border:2px solid var(--grey);color:var(--mid);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em;padding:12px 28px;cursor:pointer;transition:all .2s}
+.btn-cancel:hover{border-color:var(--ink);color:var(--ink)}
+.btn-save{background:var(--claret);border:none;color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em;padding:12px 40px;cursor:pointer;transition:background .2s}
+.btn-save:hover{background:var(--claret2)}
+
+/* ─── ENTRY VIEW ─── */
+.entry-view{max-width:720px;margin:0 auto}
+.entry-view-header{margin-bottom:32px;padding-bottom:20px;border-bottom:3px solid var(--ink)}
+.entry-view-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.08em;margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap}
+.entry-view-title{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--claret);line-height:1;margin-bottom:4px}
+.entry-view-ctx{font-family:'DM Serif Display',serif;font-style:italic;font-size:15px;color:var(--mid)}
+.entry-view-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn-act{background:transparent;border:1.5px solid var(--grey);color:var(--mid);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;padding:6px 14px;cursor:pointer;transition:all .18s;text-transform:uppercase}
+.btn-act:hover{border-color:var(--ink);color:var(--ink)}
+.btn-act.danger{border-color:rgba(192,57,43,.4);color:rgba(192,57,43,.7)}
+.btn-act.danger:hover{border-color:#C0392B;color:#C0392B}
+.entry-card{margin-bottom:12px}
+.entry-section{border-left:3px solid var(--gold);padding:16px 20px;margin-bottom:8px;background:var(--paper)}
+.entry-section-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:8px}
+.entry-section-body{font-size:13.5px;color:var(--ink);line-height:1.7;white-space:pre-wrap}
+.entry-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.entry-chip{background:rgba(107,29,52,.1);color:var(--claret);font-family:'DM Mono',monospace;font-size:10px;padding:3px 10px;letter-spacing:.04em}
+
+/* ─── SHORT ENTRY VIEW ─── */
+.short-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.short-cell{background:var(--paper);padding:14px 16px;border-left:3px solid var(--gold)}
+.short-cell-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px}
+.short-cell-body{font-size:13px;color:var(--ink);line-height:1.6;white-space:pre-wrap}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:700px){
+  .app-body{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .main-area{padding:24px 20px;max-height:none}
+  .form-meta-row{grid-template-columns:1fr}
+  .home-info{grid-template-columns:1fr}
+  .short-grid{grid-template-columns:1fr}
+  .app-header{padding:14px 20px}
+  .home-cta-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header class="app-header no-print">
+  <span class="logo">DIARIO DEL CAMBIAMENTO · PERSUASIONE</span>
+  <div class="header-right">
+    <span class="entry-count" id="header-count"></span>
+    <button class="btn-hdr" onclick="showHome()">↩ HOME</button>
+    <button class="btn-hdr" onclick="newEntry('short')">+ VOCE BREVE</button>
+    <button class="btn-hdr gold" onclick="newEntry('full')">+ NUOVA VOCE</button>
+  </div>
+</header>
+
+<div class="app-body">
+  <!-- SIDEBAR -->
+  <aside class="sidebar no-print">
+    <div class="sidebar-head">
+      <div class="sidebar-title">LE MIE VOCI</div>
+      <div class="sidebar-sub" id="sidebar-sub">0 voci salvate</div>
+    </div>
+    <div class="sidebar-filters">
+      <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">Tutte</button>
+      <button class="filter-btn" id="filter-full" onclick="setFilter('full')">Complete</button>
+      <button class="filter-btn" id="filter-short" onclick="setFilter('short')">Brevi</button>
+    </div>
+    <div class="entries-list" id="entries-list"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-area" id="main-area">
+    <!-- content injected by JS -->
+  </main>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   STORAGE
+═══════════════════════════════════════ */
+const KEY = 'persuasione_diario';
+function load()  { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } }
+function save(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e){} }
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let currentFilter = 'all';
+let activeId = null;
+
+/* ═══════════════════════════════════════
+   DATA — form config
+═══════════════════════════════════════ */
+const CONTEXTS = ['Riunione di team','Colloquio individuale','Gestione di conflitto','Assegnazione attività','Feedback','Briefing pre-apertura','Visita HR','Altro'];
+
+const TECNICHE = ['Domande aperte e ascolto attivo','Comunicazione efficace e trasparente','Empatia','Ricalco e riformulazione','Valorizzazione dell\'altro','Influenza positiva','Gestione delle resistenze'];
+const CAMBIAMENTI_IO = ['Sono stato/a più calmo/a','Più sicuro/a','Più chiaro/a','Più paziente','Più strategico/a','Più orientato/a alla collaborazione'];
+const CAMBIAMENTI_ALTRI = ['Maggiore apertura','Meno resistenza','Più collaborazione','Maggiore fiducia','Migliore ascolto','Meno conflitto'];
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  renderSidebar();
+  showHome();
+});
+
+/* ═══════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════ */
+function renderSidebar() {
+  const entries = load();
+  const filtered = currentFilter === 'all' ? entries : entries.filter(e => e.type === currentFilter);
+  const list = document.getElementById('entries-list');
+  const sub  = document.getElementById('sidebar-sub');
+  const hdr  = document.getElementById('header-count');
+
+  sub.textContent = `${entries.length} ${entries.length === 1 ? 'voce salvata' : 'voci salvate'}`;
+  hdr.textContent = entries.length > 0 ? `${entries.length} ${entries.length === 1 ? 'voce' : 'voci'}` : '';
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="entries-empty">${entries.length === 0 ? 'Nessuna voce ancora.<br>Inizia scrivendo la tua prima voce.' : 'Nessuna voce in questa categoria.'}</div>`;
+    return;
+  }
+
+  // Sort by date desc
+  const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
+  list.innerHTML = sorted.map(e => {
+    const preview = e.type === 'full' ? (e.situazione || '').slice(0,60) : (e.situazione || '').slice(0,60);
+    return `<div class="entry-item ${activeId === e.id ? 'active' : ''}" onclick="viewEntry('${e.id}')">
+      <div class="entry-item-date">${formatDate(e.date)} ${e.week ? '· ' + e.week : ''}</div>
+      <div class="entry-item-preview">${preview || '—'}</div>
+      <span class="entry-item-badge ${e.type === 'full' ? 'badge-full' : 'badge-short'}">${e.type === 'full' ? 'Completa' : 'Breve'}</span>
+    </div>`;
+  }).join('');
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  ['all','full','short'].forEach(k => document.getElementById('filter-'+k)?.classList.toggle('active', k === f));
+  renderSidebar();
+}
+
+/* ═══════════════════════════════════════
+   HOME
+═══════════════════════════════════════ */
+function showHome() {
+  activeId = null;
+  renderSidebar();
+  const entries = load();
+  const main = document.getElementById('main-area');
+
+  main.innerHTML = `
+    <div class="home-screen">
+      <div class="home-hero">
+        <div class="home-hero-icon">📓</div>
+        <h1>DIARIO DEL<br>CAMBIAMENTO</h1>
+        <p>Scrivi una voce ogni volta che vivi una situazione in cui hai applicato le tecniche di persuasione. Osserva la tua crescita nel tempo.</p>
+        <div class="home-cta-row">
+          <button class="btn-new" onclick="newEntry('full')">NUOVA VOCE COMPLETA</button>
+          <button class="btn-new-short" onclick="newEntry('short')">VOCE BREVE</button>
+        </div>
+      </div>
+
+      <div class="home-info">
+        <div class="home-info-card">
+          <div class="home-info-card-title">📋 Voce completa — 11 sezioni</div>
+          <div class="home-info-card-body">Per situazioni importanti o complesse. Analisi approfondita: prima/dopo, tecniche usate, cambiamenti in te e negli altri, apprendimento e azione futura.</div>
+        </div>
+        <div class="home-info-card">
+          <div class="home-info-card-title">⚡ Voce breve — quotidiana</div>
+          <div class="home-info-card-body">Per la riflessione veloce di fine giornata. Compila in 2 minuti: situazione, cosa hai fatto di diverso, tecnica usata, reazione degli altri, risultato, apprendimento.</div>
+        </div>
+        <div class="home-info-card">
+          <div class="home-info-card-title">💾 I dati restano tuoi</div>
+          <div class="home-info-card-body">Le voci vengono salvate nel tuo browser. Usa sempre lo stesso browser sullo stesso dispositivo per ritrovare le voci precedenti.</div>
+        </div>
+        <div class="home-info-card">
+          <div class="home-info-card-title">📤 Condividi con l'HR</div>
+          <div class="home-info-card-body">Da ogni voce puoi aprire una mail precompilata per condividere la tua riflessione con il tuo HR di zona. È sempre opzionale.</div>
+        </div>
+      </div>
+
+      ${entries.length > 0 ? `
+        <div style="border-top:2px solid var(--grey);padding-top:28px;margin-top:8px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:16px">📈 Le ultime voci</div>
+          ${[...entries].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3).map(e => `
+            <div onclick="viewEntry('${e.id}')" style="padding:14px 18px;border:1px solid var(--grey);margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .15s" onmouseover="this.style.background='rgba(107,29,52,.05)'" onmouseout="this.style.background='transparent'">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--mid);min-width:100px">${formatDate(e.date)}</div>
+              <div style="font-size:13px;color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.situazione || '—'}</div>
+              <span style="font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;background:${e.type==='full'?'rgba(107,29,52,.1)':'rgba(201,168,76,.2)'};color:${e.type==='full'?'var(--claret)':'var(--gold2)'}">${e.type==='full'?'Completa':'Breve'}</span>
+            </div>`).join('')}
+        </div>` : ''}
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   NEW ENTRY FORM
+═══════════════════════════════════════ */
+function newEntry(type) {
+  activeId = null;
+  renderSidebar();
+  const main = document.getElementById('main-area');
+  const today = new Date().toISOString().split('T')[0];
+
+  if (type === 'short') {
+    main.innerHTML = `
+      <div class="form-screen">
+        <div class="form-header">
+          <div class="form-type-badge">⚡ Voce breve quotidiana</div>
+          <div class="form-title">NUOVA VOCE</div>
+          <div class="form-sub">Riflessione rapida — compila in 2 minuti</div>
+        </div>
+        <div class="form-meta-row">
+          <div class="field-group">
+            <label class="field-label">Data</label>
+            <input class="field-input" type="date" id="f-date" value="${today}">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Tecnica usata</label>
+            <select class="field-input field-select" id="f-tecnica">
+              <option value="">— seleziona —</option>
+              ${TECNICHE.map(t => `<option value="${t}">${t}</option>`).join('')}
+              <option value="Altro">Altro</option>
+            </select>
+          </div>
+        </div>
+        ${['situazione:Situazione vissuta','diverso:Cosa hai fatto di diverso rispetto a prima','reazione:Reazione degli altri','risultato:Risultato','imparato:Cosa ho imparato','migliorare:Cosa farò meglio la prossima volta'].map(f => {
+          const [id, label] = f.split(':');
+          return `<div class="field-group" style="margin-bottom:16px">
+            <label class="field-label">${label}</label>
+            <textarea class="field-input field-textarea" id="f-${id}" style="min-height:64px" placeholder="..."></textarea>
+          </div>`;
+        }).join('')}
+        <div class="form-actions">
+          <button class="btn-cancel" onclick="showHome()">ANNULLA</button>
+          <button class="btn-save" onclick="saveEntry('short')">SALVA VOCE →</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Full form
+  main.innerHTML = `
+    <div class="form-screen">
+      <div class="form-header">
+        <div class="form-type-badge">📋 Voce completa</div>
+        <div class="form-title">NUOVA VOCE</div>
+        <div class="form-sub">Analisi approfondita della situazione</div>
+      </div>
+      <div class="form-meta-row">
+        <div class="field-group">
+          <label class="field-label">Data</label>
+          <input class="field-input" type="date" id="f-date" value="${today}">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Giorno / Settimana</label>
+          <input class="field-input" type="text" id="f-week" placeholder="es. Settimana 3 del corso">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Contesto</label>
+          <select class="field-input field-select" id="f-context">
+            <option value="">— seleziona —</option>
+            ${CONTEXTS.map(c => `<option value="${c}">${c}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-group" id="context-other-wrap" style="display:none">
+          <label class="field-label">Specifica il contesto</label>
+          <input class="field-input" type="text" id="f-context-other" placeholder="...">
+        </div>
+      </div>
+
+      ${buildSection(1,'Situazione vissuta','Descrivi brevemente cosa è successo.','f-situazione','Cosa è successo...')}
+      ${buildSection(2,'Come avrei reagito prima della formazione','Scrivi come avresti gestito questa situazione in passato.','f-prima','Come avresti reagito prima...')}
+      ${buildSection(3,'Come l\'ho gestita dopo la formazione','Descrivi cosa hai fatto in modo diverso grazie alla formazione.','f-dopo','Cosa hai fatto di diverso...')}
+
+      <div class="section-block" style="margin-bottom:28px">
+        <div class="section-block-header"><div class="section-num">4</div><div class="section-title">Tecniche di persuasione o gestione utilizzate</div></div>
+        <div class="section-body">
+          ${buildChecks('tecnica', TECNICHE)}
+          <div class="check-other-row">
+            <span style="font-size:13px;color:var(--mid)">Altro:</span>
+            <input class="check-other-input" id="tecnica-other" type="text" placeholder="...">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block" style="margin-bottom:28px">
+        <div class="section-block-header"><div class="section-num">5</div><div class="section-title">Cambiamenti che ho notato in me</div></div>
+        <div class="section-body">
+          ${buildChecks('cambiamento-io', CAMBIAMENTI_IO)}
+          <div class="check-other-row">
+            <span style="font-size:13px;color:var(--mid)">Altro:</span>
+            <input class="check-other-input" id="cambiamento-io-other" type="text" placeholder="...">
+          </div>
+          <div style="margin-top:14px">
+            <label class="field-label" style="margin-bottom:6px;display:block">Esempi concreti</label>
+            <textarea class="field-input field-textarea" id="f-esempi-io" placeholder="..." style="min-height:64px"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block" style="margin-bottom:28px">
+        <div class="section-block-header"><div class="section-num">6</div><div class="section-title">Cambiamenti che ho notato negli altri</div></div>
+        <div class="section-body">
+          ${buildChecks('cambiamento-altri', CAMBIAMENTI_ALTRI)}
+          <div class="check-other-row">
+            <span style="font-size:13px;color:var(--mid)">Altro:</span>
+            <input class="check-other-input" id="cambiamento-altri-other" type="text" placeholder="...">
+          </div>
+          <div style="margin-top:14px">
+            <label class="field-label" style="margin-bottom:6px;display:block">Osservazioni</label>
+            <textarea class="field-input field-textarea" id="f-osservazioni-altri" placeholder="..." style="min-height:64px"></textarea>
+          </div>
+        </div>
+      </div>
+
+      ${buildSection(7,'Risultato ottenuto','Qual è stato l\'esito della situazione?','f-risultato','...')}
+      ${buildSection(8,'Cosa ha funzionato bene','','f-funzionato','...')}
+      ${buildSection(9,'Cosa posso migliorare','','f-migliorare','...')}
+      ${buildSection(10,'Apprendimento della giornata','La lezione principale che porto con me oggi è:','f-apprendimento','...')}
+      ${buildSection(11,'Azione concreta per la prossima volta','Nella prossima situazione simile voglio:','f-azione','...')}
+
+      <div class="form-actions">
+        <button class="btn-cancel" onclick="showHome()">ANNULLA</button>
+        <button class="btn-save" onclick="saveEntry('full')">SALVA VOCE →</button>
+      </div>
+    </div>`;
+
+  // Context other toggle
+  document.getElementById('f-context').addEventListener('change', function(){
+    document.getElementById('context-other-wrap').style.display = this.value === 'Altro' ? 'block' : 'none';
+  });
+
+  // Checkbox toggle
+  document.querySelectorAll('.check-row').forEach(row => {
+    row.addEventListener('click', () => {
+      row.classList.toggle('checked');
+      const mark = row.querySelector('.check-mark');
+      mark.textContent = row.classList.contains('checked') ? '✓' : '';
+    });
+  });
+}
+
+function buildSection(num, title, sub, id, placeholder) {
+  return `<div class="section-block" style="margin-bottom:28px">
+    <div class="section-block-header"><div class="section-num">${num}</div><div class="section-title">${title}${sub ? '<br><span style="font-weight:400;opacity:.7;font-size:11px">'+sub+'</span>' : ''}</div></div>
+    <div class="section-body">
+      <textarea class="field-input field-textarea" id="${id}" placeholder="${placeholder}" style="min-height:80px"></textarea>
+    </div>
+  </div>`;
+}
+
+function buildChecks(prefix, items) {
+  return `<div class="check-grid">${items.map((item,i) => `
+    <div class="check-row" data-key="${prefix}-${i}">
+      <div class="check-box"><span class="check-mark"></span></div>
+      <span class="check-label">${item}</span>
+    </div>`).join('')}</div>`;
+}
+
+/* ═══════════════════════════════════════
+   SAVE
+═══════════════════════════════════════ */
+function saveEntry(type) {
+  const entries = load();
+  const id = 'e_' + Date.now();
+
+  if (type === 'short') {
+    const entry = {
+      id, type: 'short',
+      date: document.getElementById('f-date').value || new Date().toISOString().split('T')[0],
+      tecnica: document.getElementById('f-tecnica').value,
+      situazione: document.getElementById('f-situazione').value,
+      diverso: document.getElementById('f-diverso').value,
+      reazione: document.getElementById('f-reazione').value,
+      risultato: document.getElementById('f-risultato').value,
+      imparato: document.getElementById('f-imparato').value,
+      migliorare: document.getElementById('f-migliorare').value,
+    };
+    entries.push(entry);
+    save(entries);
+    activeId = id;
+    renderSidebar();
+    viewEntry(id);
+    return;
+  }
+
+  // Full
+  const getChecked = (prefix, items) => {
+    const checked = [];
+    items.forEach((item, i) => {
+      const row = document.querySelector(`[data-key="${prefix}-${i}"]`);
+      if (row?.classList.contains('checked')) checked.push(item);
+    });
+    return checked;
+  };
+
+  const ctxVal = document.getElementById('f-context').value;
+  const context = ctxVal === 'Altro' ? (document.getElementById('f-context-other').value || 'Altro') : ctxVal;
+
+  const tecnicheChecked = getChecked('tecnica', TECNICHE);
+  const altroTecnica = document.getElementById('tecnica-other')?.value;
+  if (altroTecnica) tecnicheChecked.push(altroTecnica);
+
+  const cambIoChecked = getChecked('cambiamento-io', CAMBIAMENTI_IO);
+  const altroCambIo = document.getElementById('cambiamento-io-other')?.value;
+  if (altroCambIo) cambIoChecked.push(altroCambIo);
+
+  const cambAltriChecked = getChecked('cambiamento-altri', CAMBIAMENTI_ALTRI);
+  const altroCambAltri = document.getElementById('cambiamento-altri-other')?.value;
+  if (altroCambAltri) cambAltriChecked.push(altroCambAltri);
+
+  const g = id => document.getElementById(id)?.value || '';
+
+  const entry = {
+    id, type: 'full',
+    date: g('f-date') || new Date().toISOString().split('T')[0],
+    week: g('f-week'),
+    context,
+    situazione:    g('f-situazione'),
+    prima:         g('f-prima'),
+    dopo:          g('f-dopo'),
+    tecniche:      tecnicheChecked,
+    cambIo:        cambIoChecked,
+    esempiIo:      g('f-esempi-io'),
+    cambAltri:     cambAltriChecked,
+    osservazioniAltri: g('f-osservazioni-altri'),
+    risultato:     g('f-risultato'),
+    funzionato:    g('f-funzionato'),
+    migliorare:    g('f-migliorare'),
+    apprendimento: g('f-apprendimento'),
+    azione:        g('f-azione'),
+  };
+  entries.push(entry);
+  save(entries);
+  activeId = id;
+  renderSidebar();
+  viewEntry(id);
+}
+
+/* ═══════════════════════════════════════
+   VIEW ENTRY
+═══════════════════════════════════════ */
+function viewEntry(id) {
+  activeId = id;
+  renderSidebar();
+  const entry = load().find(e => e.id === id);
+  if (!entry) { showHome(); return; }
+  const main = document.getElementById('main-area');
+
+  if (entry.type === 'short') {
+    main.innerHTML = `
+      <div class="entry-view">
+        <div class="entry-view-header">
+          <div class="entry-view-meta">
+            <span>${formatDate(entry.date)}</span>
+            <span style="background:rgba(201,168,76,.2);color:var(--gold2);padding:2px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em">VOCE BREVE</span>
+            ${entry.tecnica ? `<span>⚙ ${entry.tecnica}</span>` : ''}
+          </div>
+          <div class="entry-view-title">${entry.situazione ? entry.situazione.slice(0,40) + (entry.situazione.length>40?'…':'') : 'Voce del ' + formatDate(entry.date)}</div>
+          <div class="entry-view-actions">
+            <button class="btn-act no-print" onclick="window.print()">⬇ PDF</button>
+            <button class="btn-act no-print" onclick="sendEntryEmail('${id}')">✉ INVIA HR</button>
+            <button class="btn-act danger no-print" onclick="deleteEntry('${id}')">🗑 ELIMINA</button>
+          </div>
+        </div>
+        <div class="short-grid entry-card">
+          ${[['Situazione','situazione'],['Cosa ho fatto di diverso','diverso'],['Tecnica usata','tecnica'],['Reazione degli altri','reazione'],['Risultato','risultato'],['Cosa ho imparato','imparato'],['Cosa farò meglio','migliorare']].map(([label,key]) => `
+            <div class="short-cell"><div class="short-cell-label">${label}</div><div class="short-cell-body">${entry[key] || '—'}</div></div>`).join('')}
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Full view
+  const sections = [
+    ['Situazione vissuta', entry.situazione],
+    ['Come avrei reagito prima', entry.prima],
+    ['Come l\'ho gestita dopo', entry.dopo],
+    null, // tecniche — special
+    null, // cambIo — special
+    null, // cambAltri — special
+    ['Risultato ottenuto', entry.risultato],
+    ['Cosa ha funzionato bene', entry.funzionato],
+    ['Cosa posso migliorare', entry.migliorare],
+    ['Apprendimento della giornata', entry.apprendimento],
+    ['Azione concreta per la prossima volta', entry.azione],
+  ];
+
+  const sectHtml = `
+    ${sections[0] ? secView('1', sections[0][0], sections[0][1]) : ''}
+    ${sections[1] ? secView('2', sections[1][0], sections[1][1]) : ''}
+    ${sections[2] ? secView('3', sections[2][0], sections[2][1]) : ''}
+    <div class="entry-section entry-card">
+      <div class="entry-section-title">4 · Tecniche utilizzate</div>
+      ${entry.tecniche?.length ? `<div class="entry-chips">${entry.tecniche.map(t=>`<span class="entry-chip">${t}</span>`).join('')}</div>` : '<div class="entry-section-body">—</div>'}
+    </div>
+    <div class="entry-section entry-card">
+      <div class="entry-section-title">5 · Cambiamenti in me</div>
+      ${entry.cambIo?.length ? `<div class="entry-chips">${entry.cambIo.map(t=>`<span class="entry-chip">${t}</span>`).join('')}</div>` : ''}
+      ${entry.esempiIo ? `<div class="entry-section-body" style="margin-top:10px">${entry.esempiIo}</div>` : ''}
+    </div>
+    <div class="entry-section entry-card">
+      <div class="entry-section-title">6 · Cambiamenti negli altri</div>
+      ${entry.cambAltri?.length ? `<div class="entry-chips">${entry.cambAltri.map(t=>`<span class="entry-chip">${t}</span>`).join('')}</div>` : ''}
+      ${entry.osservazioniAltri ? `<div class="entry-section-body" style="margin-top:10px">${entry.osservazioniAltri}</div>` : ''}
+    </div>
+    ${sections[6] ? secView('7', sections[6][0], sections[6][1]) : ''}
+    ${sections[7] ? secView('8', sections[7][0], sections[7][1]) : ''}
+    ${sections[8] ? secView('9', sections[8][0], sections[8][1]) : ''}
+    ${sections[9] ? secView('10', sections[9][0], sections[9][1]) : ''}
+    ${sections[10] ? secView('11', sections[10][0], sections[10][1]) : ''}
+  `;
+
+  main.innerHTML = `
+    <div class="entry-view">
+      <div class="entry-view-header">
+        <div class="entry-view-meta">
+          <span>${formatDate(entry.date)}</span>
+          ${entry.week ? `<span>${entry.week}</span>` : ''}
+          ${entry.context ? `<span>📍 ${entry.context}</span>` : ''}
+          <span style="background:rgba(107,29,52,.1);color:var(--claret);padding:2px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em">VOCE COMPLETA</span>
+        </div>
+        <div class="entry-view-title">${entry.situazione ? entry.situazione.slice(0,48) + (entry.situazione.length>48?'…':'') : 'Voce del ' + formatDate(entry.date)}</div>
+        ${entry.context ? `<div class="entry-view-ctx">${entry.context}</div>` : ''}
+        <div class="entry-view-actions">
+          <button class="btn-act no-print" onclick="window.print()">⬇ PDF</button>
+          <button class="btn-act no-print" onclick="sendEntryEmail('${id}')">✉ INVIA HR</button>
+          <button class="btn-act danger no-print" onclick="deleteEntry('${id}')">🗑 ELIMINA</button>
+        </div>
+      </div>
+      ${sectHtml}
+    </div>`;
+}
+
+function secView(num, title, text) {
+  return `<div class="entry-section entry-card">
+    <div class="entry-section-title">${num} · ${title}</div>
+    <div class="entry-section-body">${text || '—'}</div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   DELETE
+═══════════════════════════════════════ */
+function deleteEntry(id) {
+  if (!confirm('Eliminare questa voce? L\'azione non è reversibile.')) return;
+  const entries = load().filter(e => e.id !== id);
+  save(entries);
+  activeId = null;
+  renderSidebar();
+  showHome();
+}
+
+/* ═══════════════════════════════════════
+   EMAIL
+═══════════════════════════════════════ */
+function sendEntryEmail(id) {
+  const entry = load().find(e => e.id === id);
+  if (!entry) return;
+
+  const hrEmail = prompt('Inserisci la mail del tuo HR di zona (opzionale — puoi modificarla prima di inviare):','');
+  if (hrEmail === null) return; // cancelled
+
+  const subject = encodeURIComponent(`Diario del Cambiamento — ${formatDate(entry.date)}`);
+  let bodyText = `DIARIO DEL CAMBIAMENTO — Store Leader Academy 2026\n\nData: ${formatDate(entry.date)}\n`;
+  if (entry.week) bodyText += `Settimana: ${entry.week}\n`;
+  if (entry.context) bodyText += `Contesto: ${entry.context}\n`;
+  bodyText += '\n';
+
+  if (entry.type === 'short') {
+    bodyText += `SITUAZIONE:\n${entry.situazione || '—'}\n\nCOSA HO FATTO DI DIVERSO:\n${entry.diverso || '—'}\n\nTECNICA USATA:\n${entry.tecnica || '—'}\n\nREAZIONE DEGLI ALTRI:\n${entry.reazione || '—'}\n\nRISULTATO:\n${entry.risultato || '—'}\n\nCOSA HO IMPARATO:\n${entry.imparato || '—'}\n\nCOSA FARÒ MEGLIO:\n${entry.migliorare || '—'}`;
+  } else {
+    const lines = [
+      ['SITUAZIONE VISSUTA', entry.situazione],
+      ['COME AVREI REAGITO PRIMA', entry.prima],
+      ['COME L\'HO GESTITA DOPO', entry.dopo],
+      ['TECNICHE UTILIZZATE', entry.tecniche?.join(', ')],
+      ['CAMBIAMENTI IN ME', entry.cambIo?.join(', ')],
+      ['ESEMPI CONCRETI', entry.esempiIo],
+      ['CAMBIAMENTI NEGLI ALTRI', entry.cambAltri?.join(', ')],
+      ['OSSERVAZIONI', entry.osservazioniAltri],
+      ['RISULTATO OTTENUTO', entry.risultato],
+      ['COSA HA FUNZIONATO', entry.funzionato],
+      ['COSA POSSO MIGLIORARE', entry.migliorare],
+      ['APPRENDIMENTO', entry.apprendimento],
+      ['AZIONE PROSSIMA VOLTA', entry.azione],
+    ];
+    bodyText += lines.filter(([,v]) => v).map(([k,v]) => `${k}:\n${v}`).join('\n\n');
+  }
+
+  bodyText += '\n\n---\nGenerato dal Diario del Cambiamento — Store Leader Academy 2026.';
+  window.location.href = `mailto:${hrEmail || ''}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+}
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  try {
+    return new Date(dateStr + 'T12:00:00').toLocaleDateString('it-IT', { day:'2-digit', month:'short', year:'numeric' });
+  } catch(e) { return dateStr; }
+}
+</script>
+</body>
+</html>
